@@ -32,9 +32,9 @@ var Quiz = sequelize.import(quiz_path);
 exports.Quiz = Quiz; 
 
 // sequelize.sync() crea e inicializa la tabla de preguntas en la BBDD
-sequelize.sync().success(function() {
+sequelize.sync().then(function() {
 		//console.log('inicio sync'); // control de paso de programa
-		Quiz.count().success( //success(...) ejecuta el manejador una vez creada la tabla
+		Quiz.count().then( //success(...) ejecuta el manejador una vez creada la tabla
 			function (count) {
 				if (count===0) {
 					console.log('La tabla Quiz esta vacía. Se procede a llenarla con la pregunta inicial'); // control de paso de programa
@@ -42,8 +42,14 @@ sequelize.sync().success(function() {
 						{	pregunta: 'Capital de Italia',
 							respuesta: 'Roma'
 						}
+					);
+					Quiz.create( // a continuación se indican los pares "nombre columna": "valor columna"
+						{	pregunta: 'Capital de Portugal',
+							respuesta: 'Lisboa'
+						}
 					)
-					.success(						function(){console.log('... tabla Quiz inicializada correctamente')}
+
+					.then(						function(){console.log('Base de datos inicializada con dos preguntas')}
 					);
 				} else {
 					console.log('La tabla Quiz tiene datos. No se modifica.'); // control de paso de programa
