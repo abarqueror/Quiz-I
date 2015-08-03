@@ -38,16 +38,16 @@ sequelize.sync().then(function() {
 			function (count) {
 				if (count===0) {
 					console.log('La tabla Quiz esta vacía. Se procede a llenarla con la pregunta inicial'); // control de paso de programa
-					Quiz.create( // a continuación se indican los pares "nombre columna": "valor columna"
-						{	pregunta: 'Capital de Italia',
-							respuesta: 'Roma'
-						}
-					);
-					Quiz.create( // a continuación se indican los pares "nombre columna": "valor columna"
-						{	pregunta: 'Capital de Portugal',
-							respuesta: 'Lisboa'
-						}
-					)
+					Quiz.create({
+			   			pregunta: 'Capital de Italia',
+						respuesta: 'Roma',
+						tema: 'otro'
+			});
+					Quiz.create({
+						pregunta: 'Capital de Portugal',
+						respuesta: 'Lisboa',
+						tema: 'otro'
+			})
 
 					.then(						function(){console.log('Base de datos inicializada con dos preguntas')}
 					);
