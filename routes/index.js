@@ -9,7 +9,16 @@ var quizAutor = require('../controllers/author_controller.js');
 router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz', errors: [] });
 });
+
+
 router.param('quizId', quizController.load);
+
+//Modulo 9:moderación de comentarios
+router.param('commentId',commentController.load); //autoload :commentId //M9Quiz18
+
+
+
+
 // Definición de rutas de sesión
 router.get('/login',  sessionController.new); //formulario de login
 router.post('/login', sessionController.create); //crear sesión
@@ -36,6 +45,7 @@ router.post('/quizes/create',quizController.create);
 //Mod 9 Comentarios
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments'   , commentController.create);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
 
 
 
