@@ -42,13 +42,14 @@ app.use(function(req, res, next) {
 
 
 //Modulo 9 P2P obligatorio
-// Caducidad de la sesion: 2 minutos 120000 milisegundos
+// Se destruye la sesión del usuario logado transcurridos 120000 ms =2 sg
 app.use(function(req, res, next) {
-  var now = new Date().getTime();
-  if (req.session.ultimaVez && now-req.session.ultimaVez>120000) {
-    delete req.session.user;  //sesion caducada
+  var now = new Date().getTime();//Capturo hora actual
+  if (req.session.LastTime && now-req.session.LastTime>120000) { //Si tenemos hora de ultima vez y han pasado 2 mins o mas
+    delete req.session.user;                                     //se destruye sesión de usuario     
   }
-  req.session.ultimaVez = now; //en todo caso apuntamos ultima vez
+  req.session.LastTime = now; 
+
   next();
 });
 //M9p2pObligatoria  End
