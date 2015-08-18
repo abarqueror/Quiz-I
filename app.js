@@ -40,6 +40,19 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+//Modulo 9 P2P obligatorio
+// Caducidad de la sesion: 2 minutos 120000 milisegundos
+app.use(function(req, res, next) {
+  var now = new Date().getTime();
+  if (req.session.ultimaVez && now-req.session.ultimaVez>120000) {
+    delete req.session.user;  //sesion caducada
+  }
+  req.session.ultimaVez = now; //en todo caso apuntamos ultima vez
+  next();
+});
+//M9p2pObligatoria  End
+
 app.use('/', routes);
 //app.use('/users', users);
 
